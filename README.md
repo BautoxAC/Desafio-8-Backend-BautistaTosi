@@ -1,21 +1,21 @@
 # Explicación
 Este proyecto es un API básica que sigue las consignas de la tercera preEntrega del proyecto final de CoderHouse funcionando con:
-MongoDB
-Handlebars
-NodeJS
-Css
-ExpressJs
-GIT
-DotEnv
+- [x] MongoDB
+- [x] Handlebars
+- [x] NodeJS
+- [x] Css
+- [x] ExpressJs
+- [x] GIT
+- [x] DotEnv
 
 ## Funcionalidades:
-Iniciar y registrar tu sesión
+- [x] Iniciar y registrar tu sesión
 Manejar tu carrito
-Comprar tu carrito
-Ver los productos disponibles
-Ver tu perfil
-Utilizar el chat
-Crear productos 
+- [x] Comprar tu carrito
+- [x] Ver los productos disponibles
+- [x] Ver tu perfil
+- [x] Utilizar el chat
+- [x] Crear productos 
 
 ## Link de postman (donde estan se encuentran los endpoints del API)
 [https://documenter.getpostman.com/view/27127572/2s93eYTrfS]
@@ -26,6 +26,8 @@ SESSION_SECRET=
 CLIENT_ID=
 CLIENT_SECRET=
 PORT=
+
+## Para iniciar el proyecto hacer estos comandos
 
 ### `npm ci`
 Instala las dependencias necesarias

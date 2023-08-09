@@ -1,10 +1,10 @@
 import { fakerES } from '@faker-js/faker'
 export class MockingProductsService {
-  createMockProducts() {
+  createMockProducts () {
     const Createthumbnails = () => {
       const thumbnails = []
       const numOfThumbnails = parseInt(
-        fakerES.string.numeric(1, { bannedDigits: ['0'] })
+        fakerES.string.numeric({ length: 1, exclude: ['0'] })
       )
       for (let i = 0; i < numOfThumbnails; i++) {
         thumbnails.push(fakerES.image.url())

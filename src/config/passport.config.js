@@ -60,7 +60,6 @@ export function iniPassPortLocalAndGithub () {
           const userCreated = await userModel.create(newUser)
           return done(null, userCreated)
         } catch (e) {
-          console.log('Error in register')
           console.log(e)
           return done(e)
         }

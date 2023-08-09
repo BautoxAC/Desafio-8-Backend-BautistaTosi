@@ -38,24 +38,23 @@ document.getElementById('buttonSumbit').addEventListener('click', () => {
   socket.emit('msg_front_to_back', { data })
 })
 socket.on('newProduct_to_front', (product, products) => {
-  if (product.status === 'failure') {
+  if (product.status !== 'success') {
     alert(product.message)
   } else {
     alert(product.message)
     renderProducts(products)
   }
 })
-socket.on('msg_back_to_front_products', ({ docs }) => {
-  const products = docs
-  renderProducts(products)
-  for (let i = 0; i < products.length; i++) {
-    const product = products[i]
+socket.on('msg_back_to_front_products', ({ payload }) => {
+  renderProducts(payload)
+  for (let i = 0; i < payload.length; i++) {
+    const product = payload[i]
     document.getElementById(product._id).addEventListener('click', () => {
       socket.emit('msg_front_to_back_delete_product', product)
     })
   }
 })
-socket.on('msg_front_to_back_deleted', (products) => {
+socket.on('msg_front_to_back_deleted', ({ payload }) => {
   list.innerHTML = ''
-  renderProducts(products)
+  renderProducts(payload)
 })

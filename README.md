@@ -29,7 +29,7 @@ Este proyecto es un API básica que sigue las consignas de la tercera preEntrega
 - CLIENT_SECRET=
 - PORT=
 
-## Para iniciar el proyecto hacer estos comandos
+## Para iniciar el proyectocon nodeJS
 
 ### `npm ci`
 - Instala las dependencias necesarias

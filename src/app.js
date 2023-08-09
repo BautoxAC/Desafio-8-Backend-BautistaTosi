@@ -5,6 +5,7 @@ import handlebars from 'express-handlebars'
 import session from 'express-session'
 import path from 'path'
 import passport from 'passport'
+import { errorHandler } from './middlewares/error.js'
 import { mockingProducts } from './routes/mockingProducts.router.js'
 import { cartsAPIRouter } from './routes/cartsAPI.router.js'
 import { productViewRouter } from './routes/productsView.router.js'
@@ -67,6 +68,9 @@ app.use('/auth', authRouter)
 // Rutes: SOCKETS
 app.use('/realtimeproducts', productsSocketRouter)
 app.use('/chat', chatRouter)
+
+// Error Handler
+app.use(errorHandler)
 
 app.get('*', (req, res) => {
   return res.status(404).json({

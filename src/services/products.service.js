@@ -1,10 +1,12 @@
 import { ProductManagerDBDAO } from '../DAO/DB/productManagerDB.dao.js'
 import { newMessage } from '../utils.js'
+import { CustomError } from './errors/custom-error.js'
+import { EErros } from './errors/enums.js'
 const ProductManagerDAO = new ProductManagerDBDAO()
 export class ProductManagerDBService {
-  async addProduct (title, description, price, thumbnails, code, stock) {
+  async addProduct (title, description, price, thumbnails, code, stock, category) {
     try {
-      const product = { title, description, price: Number(price), thumbnails: thumbnails !== undefined && [thumbnails], code, stock: Number(stock) }
+      const product = { title, description, price: Number(price), thumbnails: thumbnails !== undefined && [thumbnails], code, stock: Number(stock), category }
       let addPro = true
       const productValues = Object.values(product)
       for (const prop of productValues) {
@@ -14,11 +16,22 @@ export class ProductManagerDBService {
         }
       }
       const products = await this.getProducts()
-      const codeVerificator = products.payload.find((productToFind) => productToFind.code === code)
+      const codeVerificator = products.payload.some((productToFind) => productToFind.code === code)
+      console.log(codeVerificator, product)
       if (codeVerificator) {
-        return newMessage('failure', 'Error, the code is repeated', '')
+        CustomError.createError({
+          name: 'Product creation error',
+          cause: 'The code was equal to another one in the database',
+          message: 'Error trying to create product',
+          code: EErros.INCORRECT_CREDENTIALS_ERROR
+        })
       } else if (!addPro) {
-        return newMessage('failure', 'Error, data is incomplete please provide more data and the stock and the price must be numbers', '')
+        CustomError.createError({
+          name: 'Product creation error',
+          cause: 'Error, data is incomplete please provide more data and the stock and the price must be numbers',
+          message: 'Error trying to create product',
+          code: EErros.INVALID_TYPES_ERROR
+        })
       } else {
         const lastAdded = await ProductManagerDAO.addProduct(product)
         return newMessage('success', 'Product added successfully', lastAdded)
@@ -38,7 +51,12 @@ export class ProductManagerDBService {
       const dataTypes = Object.entries(productToUpdate).map((prop) => ({ key: prop[0], type: prop[0] === 'thumbnails' ? 'string' : typeof (prop[1]) }))
       const messages = []
       if (!productToUpdate || Array.isArray(propsReceivedToUpdate)) {
-        return newMessage('failure', 'The product was not found or the data is an Array', '')
+        CustomError.createError({
+          name: 'Product update error',
+          cause: 'The product was not found or the data is an Array',
+          message: 'Error trying to update product',
+          code: EErros.INVALID_TYPES_ERROR
+        })
       }
       const propToUpdateFound = entriesRecieved.map((entry) => {
         const status = valuesToUpdate.some((propUpdate) => entry[0] === propUpdate && entry[0] !== 'id' && entry[0] !== 'status')
@@ -93,7 +111,12 @@ export class ProductManagerDBService {
       if (productFindId) {
         return newMessage('success', 'Found successfully', productFindId)
       } else {
-        return newMessage('failure', 'Not Found', '')
+        CustomError.createError({
+          name: 'Finding product error',
+          cause: 'The product was not found',
+          message: 'Error trying to find product',
+          code: EErros.INCORRECT_CREDENTIALS_ERROR
+        })
       }
     } catch (e) {
       console.log(e)

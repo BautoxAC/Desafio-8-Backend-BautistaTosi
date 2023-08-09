@@ -1,5 +1,7 @@
 import { CartManagerDBDAO } from '../DAO/DB/cartManagerDB.dao.js'
 import { newMessage } from '../utils.js'
+import { CustomError } from './errors/custom-error.js'
+import { EErros } from './errors/enums.js'
 import { ProductManagerDBService } from './products.service.js'
 const listProducts = new ProductManagerDBService()
 const CartManagerDAO = new CartManagerDBDAO()
@@ -11,7 +13,12 @@ export class CartManagerDBService {
       if (cartFindId) {
         return newMessage('success', 'Found successfully', { products: [...cartFindId.products], totalPrices } || [])
       } else {
-        return newMessage('failure', 'Cart not Found', '')
+        CustomError.createError({
+          name: 'Finding cart error',
+          cause: 'The cart was not found',
+          message: 'Error trying to find cart',
+          code: EErros.INCORRECT_CREDENTIALS_ERROR
+        })
       }
     } catch (e) {
       console.log(e)
@@ -33,12 +40,22 @@ export class CartManagerDBService {
     try {
       const cart = await CartManagerDAO.getCartById(idCart)
       if (!cart) {
-        return newMessage('failure', 'cart not found', '')
+        CustomError.createError({
+          name: 'Finding cart error',
+          cause: 'The cart was not found',
+          message: 'Error trying to find cart',
+          code: EErros.INCORRECT_CREDENTIALS_ERROR
+        })
       }
       let product = await listProducts.getProductById(idProduct)
       product = product.data
       if (!product) {
-        return newMessage('failure', 'product not found', '')
+        CustomError.createError({
+          name: 'Finding product error',
+          cause: 'The product was not found',
+          message: 'Error trying to find product',
+          code: EErros.INCORRECT_CREDENTIALS_ERROR
+        })
       }
       const productRepeated = cart.products.find(pro => pro.idProduct._id.toString() === product._id.toString())
       let messageReturn = {}
@@ -48,7 +65,12 @@ export class CartManagerDBService {
           cart.products[positionProductRepeated].quantity++
           messageReturn = newMessage('success', 'Product repeated: quantity added correctly', cart)
         } else {
-          messageReturn = newMessage('failure', 'Product repeated: quantity is iqual to the stock', cart)
+          CustomError.createError({
+            name: 'Agregating product to cart error',
+            cause: 'Product repeated: quantity is iqual to the stock',
+            message: 'Error trying to agregate the product to the cart',
+            code: EErros.INCORRECT_CREDENTIALS_ERROR
+          })
         }
       } else {
         cart.products.push({ idProduct: product._id, quantity: 1 })
@@ -79,15 +101,32 @@ export class CartManagerDBService {
   async addNewProducts (idCart, products) {
     try {
       if (!Array.isArray(products) && products.length === 0) {
-        throw new Error('You must pass an array and at least one product')
+        CustomError.createError({
+          name: 'Adding an array to cart error',
+          cause: 'You must pass an array and at least one product',
+          message: 'Error the products could not be agretated',
+          code: EErros.INVALID_TYPES_ERROR
+        })
       }
       for (const product of products) {
         const productExist = await listProducts.getProductById(product.id)
         if (!productExist) {
-          throw new Error(`The product with the id (${product.idProduct}) does not exist`)
+          CustomError.createError({
+            name: 'Adding an array to cart error',
+            cause: `The product with the id (${product.idProduct}) does not exist`,
+            message: 'Error the products could not be agretated they do not exist',
+            code: EErros.INCORRECT_CREDENTIALS_ERROR
+          })
         }
         const idRepeated = products.filter(pro => pro.idProduct === product.idProduct)
-        if (idRepeated.length === 2) { throw new Error(`The product with the id (${product.idProduct}) is repeated in the array you passed`) }
+        if (idRepeated.length === 2) {
+          CustomError.createError({
+            name: 'Adding an array to cart error',
+            cause: `The product with the id (${product.idProduct}) is repeated in the array you passed`,
+            message: 'Error the products could not be agretated they are repeated in the data you passed',
+            code: EErros.INCORRECT_CREDENTIALS_ERROR
+          })
+        }
       }
       const cartFindId = await CartManagerDAO.getCartById(idCart)
       cartFindId.products = products
@@ -114,11 +153,25 @@ export class CartManagerDBService {
   async updateQuantityProduct (idCart, idProduct, quantity) {
     try {
       const quantityNumber = Object.values(quantity)
-      if (typeof (quantityNumber[0]) !== 'number') { return newMessage('failure', 'the quantity must be a number', '') }
+      if (typeof (quantityNumber[0]) !== 'number') {
+        CustomError.createError({
+          name: 'Updating the product quantity Error',
+          cause: 'the quantity must be a number',
+          message: 'Error the products could not be updated the quantity was not a number',
+          code: EErros.INVALID_TYPES_ERROR
+        })
+      }
       const cartFindId = await CartManagerDAO.getProductById(idCart)
       const cartProducts = cartFindId.products
       const productToUpdate = cartProducts.find(pro => pro.idProduct === idProduct)
-      if (!productToUpdate) { return newMessage('failure', 'the product was not found inside the cart', '') }
+      if (!productToUpdate) {
+        CustomError.createError({
+          name: 'Updating the product quantity Error',
+          cause: 'the product was not found inside the cart',
+          message: 'Error the products could not be updated the product was not found ',
+          code: EErros.INCORRECT_CREDENTIALS_ERROR
+        })
+      }
       productToUpdate.quantity = quantityNumber[0]
       await CartManagerDAO.updateQuantityProduct(cartFindId)
       return newMessage('success', 'the quantity of product was updated', cartFindId)

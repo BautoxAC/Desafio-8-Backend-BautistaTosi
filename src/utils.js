@@ -1,8 +1,8 @@
 import multer from 'multer'
 import { Server } from 'socket.io'
-import { ChatManagerDBDAO } from './DAO/DB/chatManagerDB.dao.js'
-import { ProductManagerDBDAO } from './DAO/DB/productManagerDB.dao.js'
+import { ChatManagerDBService } from './services/chat.service.js'
 import { CartManagerDBService } from './services/carts.service.js'
+import { ProductManagerDBService } from './services/products.service.js'
 import { UserManagerDBService } from './services/user.service.js'
 import config from './config/env.config.js'
 // ----------------DIRNAME------------
@@ -38,8 +38,8 @@ export function connectSocketServer (httpServer) {
   socketServer.on('connection', async (socket) => {
     console.log('cliente conectado')
     // vista /chat
-    const MessageManager = new ChatManagerDBDAO()
-    const list = new ProductManagerDBDAO()
+    const MessageManager = new ChatManagerDBService()
+    const list = new ProductManagerDBService()
     const CartManager = new CartManagerDBService()
     const userManager = new UserManagerDBService()
     socket.on('new_message_front_to_back', async (message, userName) => {
@@ -55,7 +55,8 @@ export function connectSocketServer (httpServer) {
     socket.on('msg_front_to_back', async (data) => {
       try {
         const { title, description, price, thumbnails, code, stock } = data.data
-        socket.emit('newProduct_to_front', await list.addProduct({ title, description, price, thumbnails, code, stock, category: 'remera' }), await list.getProducts())
+        const category = 'remera'
+        socket.emit('newProduct_to_front', await list.addProduct(title, description, price, thumbnails, code, stock, category), await list.getProducts())
       } catch (e) {
         console.log(e)
         socket.emit('newProduct_to_front', { status: 'failure', message: 'something went wrong :(', data: {} })

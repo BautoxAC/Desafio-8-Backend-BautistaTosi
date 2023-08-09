@@ -45,13 +45,19 @@ Este proyecto es un API básica que sigue las consignas de la tercera preEntrega
 
 ## Documentación y listado de las Dependecias:
 
-1. Express: [https://expressjs.com/es/]
-2. Multer: [https://github.com/expressjs/multer#readme]
-3. uuid: [https://github.com/uuidjs/uuid#readme]
-4. socket.io: [https://socket.io/docs/v4/]
-5. express-handlebars: [https://www.npmjs.com/package/express-handlebars]
-6. Mongoose: [https://mongoosejs.com]
-7. mongoose-paginate-v2: [https://github.com/aravindnc/mongoose-paginate-v2]
-8. express-session: [https://github.com/expressjs/session]
-9. connect-mongo: [https://www.npmjs.com/package/connect-mongo]
-10. passport[https://www.passportjs.org10
+1. bcrypt
+2. Commander
+3. Connect-mongo
+4. dotenv
+5. Express
+6. Express-compression
+7. Express-handlebars
+8. Express-session
+9. Mongoose
+10. Mongoose-paginate-v2
+11. multer
+12. passport
+13. passport-github2
+14. passport-local
+15. socket.io
+16. uuid

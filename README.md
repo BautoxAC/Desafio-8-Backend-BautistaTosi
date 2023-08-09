@@ -40,14 +40,13 @@ Link de postman (donde estan se encuentran los endpoints del API)
 
 ## Documentación y listado de las Dependecias:
 
-Express: [https://expressjs.com/es/]
-Multer: [https://github.com/expressjs/multer#readme]
-uuid: [https://github.com/uuidjs/uuid#readme]
-socket.io: [https://socket.io/docs/v4/]
-express-handlebars: [https://www.npmjs.com/package/express-handlebars]
-Mongoose: [https://mongoosejs.com]
-mongoose-paginate-v2: [https://github.com/aravindnc/mongoose-paginate-v2]
-express-session: [https://github.com/expressjs/session]
-connect-mongo:
- [https://www.npmjs.com/package/connect-mongo]
-passport[https://www.passportjs.org]
+1. Express: [https://expressjs.com/es/]
+2. Multer: [https://github.com/expressjs/multer#readme]
+3. uuid: [https://github.com/uuidjs/uuid#readme]
+4. socket.io: [https://socket.io/docs/v4/]
+5. express-handlebars: [https://www.npmjs.com/package/express-handlebars]
+6. Mongoose: [https://mongoosejs.com]
+7. mongoose-paginate-v2: [https://github.com/aravindnc/mongoose-paginate-v2]
+8. express-session: [https://github.com/expressjs/session]
+9. connect-mongo: [https://www.npmjs.com/package/connect-mongo]
+10. passport[https://www.passportjs.org10

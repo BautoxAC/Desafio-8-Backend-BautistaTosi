@@ -5,6 +5,8 @@ import local from 'passport-local'
 import { createHash, isValidPassword } from '../utils.js'
 import { CartManagerDBService } from '../services/carts.service.js'
 import config from './env.config.js'
+import { EErros } from '../services/errors/enums.js'
+import { CustomError } from '../services/errors/custom-error.js'
 const LocalStrategy = local.Strategy
 const { clientID, clientSecret, port } = config
 const cartManager = new CartManagerDBService()
@@ -16,11 +18,21 @@ export function iniPassPortLocalAndGithub () {
       try {
         const user = await userModel.findOne({ email: username })
         if (!user) {
-          console.log('User Not Found with username (email) ' + username)
+          CustomError.createError({
+            name: 'Finding a user Error',
+            cause: 'User Not Found with username (email) ' + username,
+            message: 'Error to find a user',
+            code: EErros.INCORRECT_CREDENTIALS_ERROR
+          })
           return done(null, false)
         }
         if (!isValidPassword(password, user.password)) {
-          console.log('Invalid Password')
+          CustomError.createError({
+            name: 'Validating a user Error',
+            cause: 'Invalid Password',
+            message: 'Error to validate a user',
+            code: EErros.INCORRECT_CREDENTIALS_ERROR
+          })
           return done(null, false)
         }
 
@@ -43,7 +55,12 @@ export function iniPassPortLocalAndGithub () {
           const { email, firstName, lastName, age } = req.body
           const user = await userModel.findOne({ email: username })
           if (user) {
-            console.log('User already exists')
+            CustomError.createError({
+              name: 'Registering a user Error',
+              cause: 'User already exists',
+              message: 'Error to register a user',
+              code: EErros.INCORRECT_CREDENTIALS_ERROR
+            })
             return done(null, false)
           }
           const newCart = await cartManager.addCart()
@@ -88,7 +105,12 @@ export function iniPassPortLocalAndGithub () {
           // eslint-disable-next-line eqeqeq
           const emailDetail = emails.find((email) => email.verified == true)
           if (!emailDetail) {
-            return done(new Error('cannot get a valid email for this user'))
+            CustomError.createError({
+              name: 'Validating a user Error',
+              cause: 'cannot get a valid email for this user',
+              message: 'Error to find the email of the user',
+              code: EErros.INCORRECT_CREDENTIALS_ERROR
+            })
           }
           profile.email = emailDetail.email
           const user = await userModel.findOne({ email: profile.email })

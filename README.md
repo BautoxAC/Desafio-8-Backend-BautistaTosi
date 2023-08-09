@@ -10,7 +10,7 @@ Este proyecto es un API básica que sigue las consignas de la tercera preEntrega
 
 ## Funcionalidades:
 - [x] Iniciar y registrar tu sesión
-Manejar tu carrito
+- [x] Manejar tu carrito
 - [x] Comprar tu carrito
 - [x] Ver los productos disponibles
 - [x] Ver tu perfil
@@ -18,27 +18,29 @@ Manejar tu carrito
 - [x] Crear productos 
 
 ## Link de postman (donde estan se encuentran los endpoints del API)
+```
 [https://documenter.getpostman.com/view/27127572/2s93eYTrfS]
+```
 
 ## Esquema del DotEnv:
-MONGO_LINK=
-SESSION_SECRET=
-CLIENT_ID=
-CLIENT_SECRET=
-PORT=
+- MONGO_LINK=
+- SESSION_SECRET=
+- CLIENT_ID=
+- CLIENT_SECRET=
+- PORT=
 
 ## Para iniciar el proyecto hacer estos comandos
 
 ### `npm ci`
-Instala las dependencias necesarias
+- Instala las dependencias necesarias
 
 ### `npm start`
-Inicia el Servidor en [http://localhost:8080]
-En la colección de producción 
+- Inicia el Servidor en [http://localhost:8080]
+- En la colección de producción de mongoDB
 
 ### `npm run dev`
-Inicia el Servidor en [http://localhost:3000]
-En la colección de prueba 
+- Inicia el Servidor en [http://localhost:3000]
+- En la colección de prueba de mongoDB
 
 
 ## Documentación y listado de las Dependecias:

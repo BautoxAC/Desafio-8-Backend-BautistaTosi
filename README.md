@@ -24,14 +24,14 @@ CLIENT_ID=
 CLIENT_SECRET=
 PORT=
 
-### npm ci
+### `npm ci`
 Instala las dependencias necesarias
 
 ### `npm start`
 Inicia el Servidor en [http://localhost:8080]
 En la colección de producción 
 
-### npm run dev
+### `npm run dev`
 Inicia el Servidor en [http://localhost:3000]
 En la colección de prueba 
 

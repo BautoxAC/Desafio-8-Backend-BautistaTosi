@@ -17,7 +17,10 @@ Ver tu perfil
 Utilizar el chat
 Crear productos 
 
-Esquema del DotEnv:
+## Link de postman (donde estan se encuentran los endpoints del API)
+[https://documenter.getpostman.com/view/27127572/2s93eYTrfS]
+
+## Esquema del DotEnv:
 MONGO_LINK=
 SESSION_SECRET=
 CLIENT_ID=
@@ -35,8 +38,6 @@ En la colección de producción
 Inicia el Servidor en [http://localhost:3000]
 En la colección de prueba 
 
-Link de postman (donde estan se encuentran los endpoints del API)
-[https://documenter.getpostman.com/view/27127572/2s93eYTrfS]
 
 ## Documentación y listado de las Dependecias:
 

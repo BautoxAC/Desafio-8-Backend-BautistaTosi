@@ -45,19 +45,19 @@ Este proyecto es un API básica que sigue las consignas de la tercera preEntrega
 
 ## Documentación y listado de las Dependecias:
 
-1. bcrypt
-2. Commander
-3. Connect-mongo
-4. dotenv
-5. Express
-6. Express-compression
-7. Express-handlebars
-8. Express-session
-9. Mongoose
-10. Mongoose-paginate-v2
-11. multer
-12. passport
-13. passport-github2
-14. passport-local
-15. socket.io
-16. uuid
+1. [bcrypt](https://www.npmjs.com/package/bcrypt)
+2. [Commander](https://www.npmjs.com/package/bcrypt)
+3. [Connect-mongo](https://www.npmjs.com/package/connect-mongo)
+4. [dotenv](https://www.npmjs.com/package/dotenv)
+5. [Express](https://expressjs.com/es/)
+6. [Express-compression](https://expressjs.com/en/resources/middleware/compression.html)
+7. [Express-handlebars](https://www.npmjs.com/package/express-handlebars)
+8. [Express-session](https://www.npmjs.com/package/express-session)
+9. [Mongoose](https://mongoosejs.com)
+10. [Mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2)
+11. [multer](https://www.npmjs.com/package/multer)
+12. [passport](https://www.passportjs.org)
+13. [passport-github2](passport-github2)
+14. [passport-local](passport-local)
+15. [socket.io](https://socket.io)
+16. [uuid](https://www.npmjs.com/package/uuid)
